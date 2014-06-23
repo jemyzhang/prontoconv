@@ -37,7 +37,6 @@ class Novii:
         for i in range(1,self.recidx):
             self.pdb.remove(self.pdb[1])
         self.recidx = 1
-        print("%s[%s] %d records" % (path, self.pdb.getFilename(), self.recidx))
 
     def addrec(self, record):
         if self.recidx > 0xff:
@@ -92,7 +91,7 @@ class Novii:
         rec += bytearray.fromhex('0002')
         # name string
         rec += k
-        # strend, alignment
+        # string end, alignment
         if len(k) % 2:
             rec.append(0x00)
         else:

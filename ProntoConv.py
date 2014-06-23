@@ -38,7 +38,6 @@ class ProntoConv:
         # result
         self.result = list()
 
-
     def char2seq(self, data):
         result = list()
         for i in range(0, 8):
@@ -54,7 +53,9 @@ class ProntoConv:
                     result.append(self.logic1code)
         return result
 
-    def flat(self, seq, r=list()):
+    def flat(self, seq, r=None):
+        if r is None:
+            r = list()
         for i in seq:
             if type(i) == list or type(i) == tuple:
                 r = self.flat(i, r)
@@ -79,8 +80,7 @@ class ProntoConv:
         seq.append(self.char2seq(keycode))
         seq.append(self.char2seq(0xff ^ keycode))
         seq.append(self.repeatcode)
-        self.result = list()
-        self.flat(seq, self.result)
+        self.result = self.flat(seq)
         return self.result
 
     def __str__(self):
